@@ -1,52 +1,42 @@
-# dna-task-livecoding-vue
+# How should I start
+1. Clone the repository
+1. `npm install`
+1. Run `json-server` to have mocked api (`npm run api`)
+1. Check if application is starting (`npm run dev`).
+    1. Make sure you use Node 18
+1. Run tests (`npm run test:unit`) to check if they are running.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Scenario
 
-## Recommended IDE Setup
+Let's imagine that you are working on the frontend for the festival system discussed during teamtask part of the interview.
+You have a mock api that has the following endpoints:
+- `/merchants` returning all merchants
+- `/transactions` returning all transactions
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Currently implemented is a really simple dashboard that shows statistics for transactions and registered merchants.
 
-## Type Support for `.vue` Imports in TS
+## Task 1
+Please make a code review of the currently implemented solution.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Task 2
+Add new page that allows filtering by period and merchant to show:
+- amount of transactions in selected period
+- amount of revenue in selected period
+- list of transactions for a selected merchant
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+On the list there could be an option to click on the transaction to display transaction details.
+Going back to merchant view all preselected options should be preserved.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Available Scripts
 
-## Customize configuration
+In the project directory, you can run:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### `npm run dev`
 
-## Project Setup
+To start the app in dev mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view available api endpoints.
 
-```sh
-npm install
-```
+### `npm run test:unit`
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Run the test cases.
