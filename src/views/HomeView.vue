@@ -1,34 +1,31 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+
+import CurrencyBox from '@/components/CurrencyBox.vue';
+import NumberBox from '@/components/NumberBox.vue';
 import { type Transaction } from '../types/Transaction.type';
 import { type Merchant } from '../types/Merchant.type';
+
 const transactions = ref<Transaction[]>([]);
+const transactionsSum = ref<Number>(0);
 fetch('http://localhost:8000/transactions')
   .then(response => response.json())
-  .then(data => transactions.value = data)
+  .then(data => {
+    transactions.value = data
+    transactionsSum.value = +transactions.value.reduce((sum, current) => sum + current.amount, 0).toFixed(2) || 0;
+  })
 
 const merchants = ref<Merchant[]>([]);
-
 fetch('http://localhost:8000/merchants')
   .then(response => response.json())
   .then(data => merchants.value = data)
-
-const transactionsSum = computed(() => {
-  return transactions.value.reduce((sum, current) => sum + current.amount, 0).toFixed(2);
-})
 </script>
 
 <template>
   <main>
-    <div>
-      <span>{{ transactionsSum }}$</span> Profit
-    </div>
-    <div>
-      <span>{{ transactions.length }}</span> Transactions
-    </div>
-    <div>
-      <span>{{ merchants.length }}</span> Merchants
-    </div>
+    <CurrencyBox :value="transactionsSum.valueOf()" currency-sign="$" label="Profit" />
+    <NumberBox :value="transactions.length" label="Transactions" />
+    <NumberBox :value="merchants.length" label="Merchants" />
   </main>
 </template>
 
@@ -36,24 +33,5 @@ const transactionsSum = computed(() => {
   main {
     display: flex;
     padding: 4rem 2rem;
-
-    div {
-      display: flex;
-      flex-grow: 1;
-      height: 100px;
-      align-items: center;
-      justify-content: space-evenly;
-      border: 1px solid var(--color-border);
-      border-radius: 5px;
-
-      span {
-        font-size: 24px;
-        color: hsl(160, 100%, 37%);
-      }
-    }
-
-    div + div {
-      margin-left: 2%;
-    }
   }
 </style>
