@@ -4,7 +4,6 @@
 1. Run `json-server` to have mocked api (`npm run api`)
 1. Check if application is starting (`npm run dev`).
     1. Make sure you use Node 18
-1. Run tests (`npm run test:unit`) to check if they are running.
 
 ## Scenario
 
@@ -35,7 +34,7 @@ In the project directory, you can run:
 
 To start the app in dev mode.\
 Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-Open [http://localhost:3000](http://localhost:3000) to view available api endpoints.
+Open [http://localhost:3000](http://localhost:8000) to view available api endpoints.
 
 ### `npm run test:unit`
 

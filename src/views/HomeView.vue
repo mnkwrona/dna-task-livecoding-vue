@@ -3,13 +3,13 @@ import { ref, computed } from 'vue';
 import { type Transaction } from '../types/Transaction.type';
 import { type Merchant } from '../types/Merchant.type';
 const transactions = ref<Transaction[]>([]);
-fetch('http://localhost:3000/transactions')
+fetch('http://localhost:8000/transactions')
   .then(response => response.json())
   .then(data => transactions.value = data)
 
 const merchants = ref<Merchant[]>([]);
 
-fetch('http://localhost:3000/merchants')
+fetch('http://localhost:8000/merchants')
   .then(response => response.json())
   .then(data => merchants.value = data)
 

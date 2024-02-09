@@ -1,8 +1,8 @@
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { HttpResponse, http } from 'msw'
-import { type Merchant } from './src/types/Merchant.type'
-import { type Transaction } from './src/types/Transaction.type'
+import { type Merchant } from '../src/types/Merchant.type'
+import { type Transaction } from '../src/types/Transaction.type'
 
 const merchants: Array<Merchant> = [
   {
@@ -44,10 +44,10 @@ const transactions: Array<Transaction> = [
 ]
 
 export const restHandlers = [
-  http.get('http://localhost:3000/merchants', () => {
+  http.get('http://localhost:8000/merchants', () => {
     return HttpResponse.json(merchants)
   }),
-  http.get('http://localhost:3000/transactions', () => {
+  http.get('http://localhost:8000/transactions', () => {
     return HttpResponse.json(transactions)
   })
 ]
