@@ -1,6 +1,6 @@
 export type Transaction = {
   amount: number
-  date: Date
+  date: string | Date
   id: string
   merchantId: string
   userId: string

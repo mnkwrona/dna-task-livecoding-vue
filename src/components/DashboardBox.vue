@@ -23,25 +23,9 @@ const numberCopy = computed(() => {
 </script>
 
 <template>
-  <div class="dashboard-box">
-    <span>{{ numberCopy }}</span> {{ label }}
+  <div
+    class="dashboard-box flex grow h-[100px] items-center max-w-[300px] justify-evenly border-solid border-[1px] border-[var(--color-border)] rounded-lg"
+  >
+    <span class="text-[24px] text-[var(--color-accent)]">{{ numberCopy }}</span> {{ label }}
   </div>
 </template>
-
-<style lang="scss" scoped>
-.dashboard-box {
-  display: flex;
-  flex-grow: 1;
-  height: 100px;
-  align-items: center;
-  max-width: 300px;
-  justify-content: space-evenly;
-  border: 1px solid var(--color-border);
-  border-radius: 5px;
-
-  span {
-    font-size: 24px;
-    color: #00bd7e;
-  }
-}
-</style>

@@ -14,14 +14,14 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', date: Date): void
+  (e: 'update:modelValue', date: String): void
 }>()
 
 const selected = computed({
   get() {
     return props.modelValue
   },
-  set(newValue: Date) {
+  set(newValue: string) {
     emit('update:modelValue', newValue)
   }
 })
@@ -29,7 +29,7 @@ const selected = computed({
 
 <template>
   <div class="dna-date-input">
-    <label :for="`${label}-date`" class="block text-sm font-medium leading-6 text-gray-900">
+    <label :for="`${label}-date`" class="block text-sm font-medium leading-6 text-gray-700">
       {{ label }}
     </label>
 
@@ -38,7 +38,7 @@ const selected = computed({
       :id="`${label}-date`"
       name="date"
       type="date"
-      class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 pl-3 pr-1 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-700 pl-3 pr-1 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[--color-accent] sm:text-sm sm:leading-6"
     />
   </div>
 </template>

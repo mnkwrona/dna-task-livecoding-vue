@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { PropType } from 'vue'
 import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/vue/20/solid'
 
-const props = defineProps<{
-  current: number
-  total: number
-}>()
+const props = defineProps({
+  current: {
+    type: Number as PropType<number>,
+    required: true
+  },
+  total: {
+    type: Number as PropType<number>,
+    required: true
+  }
+})
 
 const emits = defineEmits<{
   (e: '@pageChanged', value: number): void
@@ -15,7 +22,7 @@ const linkClasses = (page: number) => {
   const isCurrent = page === props.current
 
   return isCurrent
-    ? 'border-indigo-500 text-indigo-600'
+    ? 'border-[--color-accent] text-[--color-accent]'
     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
 }
 

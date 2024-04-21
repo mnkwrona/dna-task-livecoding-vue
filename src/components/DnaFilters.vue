@@ -32,7 +32,7 @@ const emits = defineEmits<{
   (e: 'filterChange', filter: Filter): void
 }>()
 
-const handleFilterUpdate = (searchValue: string | Date, searchParam: string) => {
+const handleFilterUpdate = (searchValue: string | Object, searchParam: string) => {
   filter.value[searchParam] = searchValue
 }
 
@@ -51,21 +51,21 @@ const clear = () => {
   <div class="dna-filters flex flex-col items-end md:flex-row">
     <DnaSelect
       v-if="merchants"
-      :modelValue="filter.merchant"
+      :modelValue="filter?.merchant"
       :options="merchants"
       label="Merchant"
-      @update:modelValue="handleFilterUpdate($event as Merchant, 'merchant')"
+      @update:modelValue="handleFilterUpdate($event, 'merchant')"
     />
 
     <DnaDateInput
-      :modelValue="filter.from"
+      :modelValue="filter?.from"
       label="From"
-      @update:modelValue="handleFilterUpdate($event as Date, 'from')"
+      @update:modelValue="handleFilterUpdate($event as String, 'from')"
     />
     <DnaDateInput
-      :modelValue="filter.to"
+      :modelValue="filter?.to"
       label="To"
-      @update:modelValue="handleFilterUpdate($event as Date, 'to')"
+      @update:modelValue="handleFilterUpdate($event as String, 'to')"
     />
 
     <button

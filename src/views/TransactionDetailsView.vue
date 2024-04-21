@@ -6,12 +6,10 @@ import { useTransactionStore } from '@/stores/transaction'
 import { ArrowLongLeftIcon } from '@heroicons/vue/20/solid'
 
 const transactionStore = useTransactionStore()
-
 const { fetchTransactions, getTransactionById } = transactionStore
 const { loadingTransactions } = storeToRefs(transactionStore)
 
 const route = useRoute()
-
 const transactionId = ref(route.params.id)
 
 const transactionDetails = computed(() => {

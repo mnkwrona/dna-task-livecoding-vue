@@ -46,14 +46,14 @@ const handlePageChange = (newPage: number) => {
 
 <template>
   <div class="dna-table -mx-4 sm:-mx-0">
-    <table class="min-w-full divide-y divide-gray-300">
+    <table class="min-w-full divide-y divide-[--color-border]">
       <thead>
         <tr>
           <th
             v-for="(header, index) in headers"
             :key="index"
             scope="col"
-            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-700 sm:pl-0"
           >
             {{ header }}
           </th>

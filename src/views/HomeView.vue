@@ -7,14 +7,12 @@ import { useTransactionStore } from '@/stores/transaction'
 const DashboardBox = defineAsyncComponent(() => import('@/components/DashboardBox.vue'))
 
 const transactionStore = useTransactionStore()
-const merchantStore = useMerchantStore()
-
 const { fetchTransactions } = transactionStore
-const { fetchMerchants } = merchantStore
-
 const { loadingTransactions, transactionsNumber, transactionsSum, transactionsFetchFailed } =
   storeToRefs(transactionStore)
 
+const merchantStore = useMerchantStore()
+const { fetchMerchants } = merchantStore
 const { merchantsNumber } = storeToRefs(merchantStore)
 
 fetchTransactions()

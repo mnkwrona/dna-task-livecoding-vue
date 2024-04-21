@@ -33,7 +33,7 @@ const headers = computed(() => {
   return Object.keys(transactions.value[0])
 })
 
-const dateFormatted = (date: Date) => {
+const dateFormatted = (date: String) => {
   return useDateFormat(date, 'YYYY-MM-DD HH:mm:ss')
 }
 
