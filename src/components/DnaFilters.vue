@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import type { PropType } from 'vue'
 import { type Filter } from '../types/Filter.type'
 import { type Merchant } from '../types/Merchant.type'

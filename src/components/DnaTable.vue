@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { defineAsyncComponent } from 'vue'
+import type { PropType } from 'vue'
 
 const DnaPagination = defineAsyncComponent(() => import('@/components/DnaPagination.vue'))
 
-const props = defineProps<{
-  items: object[]
-  headers: string[]
-}>()
+const props = defineProps({
+  items: {
+    type: Array as PropType<Object[]>,
+    required: true
+  },
+  headers: {
+    type: Array as PropType<String[]>,
+    required: true
+  },
+  handleRowClick: {
+    type: Function,
+    default: () => {}
+  }
+})
 
 const currentPage = ref(1)
 const displayedItemsPerPage = ref(100)
@@ -48,8 +59,13 @@ const handlePageChange = (newPage: number) => {
           </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-200 bg-white">
-        <tr v-for="(item, index) in currentPageItems" :key="index">
+      <tbody class="divide-y divide-gray-100 bg-white">
+        <tr
+          v-for="(item, index) in currentPageItems"
+          :key="index"
+          class="hover:cursor-pointer hover:bg-gray-100"
+          @click="handleRowClick(item.id)"
+        >
           <slot name="item" v-bind="item"></slot>
         </tr>
       </tbody>

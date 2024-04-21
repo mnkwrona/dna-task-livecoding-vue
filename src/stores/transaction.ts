@@ -15,6 +15,10 @@ export const useTransactionStore = defineStore("transaction", () => {
 
   //actions
   const fetchTransactions = async () => {
+    if (transactions.value?.length) {
+      return
+    }
+
     const { isFetching, error, data } = await useFetch(apiUrl).get().json()
 
     transactions.value = data.value as Transaction[]
@@ -61,9 +65,16 @@ export const useTransactionStore = defineStore("transaction", () => {
     return sum
   })
 
+  const getTransactionById = (transactionId: string) => {
+    return transactions.value.find(transaction => {
+      return transaction.id === transactionId
+    })
+  }
+
   return {
     fetchTransactions,
     filteredTransactions,
+    getTransactionById,
     loadingTransactions,
     transactions,
     transactionsFilter,
