@@ -21,7 +21,7 @@ const props = defineProps({
 })
 
 const currentPage = ref(1)
-const displayedItemsPerPage = ref(100)
+const displayedItemsPerPage = ref(50)
 
 const totalPages = computed(() => {
   return Math.ceil(props.items?.length / displayedItemsPerPage.value)

@@ -1,19 +1,33 @@
 import { defineStore } from "pinia"
 import { computed, ref } from 'vue'
 import { useFetch } from '@vueuse/core'
+import {  useRouter } from 'vue-router'
 import { type Filter } from '../types/Filter.type'
 import { type Transaction } from '../types/Transaction.type'
 
 export const useTransactionStore = defineStore("transaction", () => {
+  const router = useRouter()
   const apiUrl = `${import.meta.env.VITE_API_URL}/transactions`
 
   //state
   const transactions = ref<Transaction[]>([])
   const loadingTransactions = ref<Boolean>(true)
   const transactionsFetchFailed = ref<Boolean>(false)
-  const transactionsFilter = ref<Filter>()
+  const transactionsFilter = ref<Filter>({})
 
   //actions
+  const setTransactionsFilter = (filter: Filter) => {
+    transactionsFilter.value = filter
+    const query = {
+      merchantId: filter.merchant?.id,
+      merchantName: filter.merchant?.name,
+      from: filter.from,
+      to: filter.to,
+    }
+
+    router.push({ query: query })
+  }
+
   const fetchTransactions = async () => {
     if (transactions.value?.length) {
       return
@@ -28,12 +42,11 @@ export const useTransactionStore = defineStore("transaction", () => {
 
   //getters
   const filteredTransactions = computed(() => {
-  // TODO
     let result = [...transactions.value]
 
     if (transactionsFilter.value?.merchant) {
       result = result.filter(transaction => {
-        return transaction.merchantId === transactionsFilter.value?.merchant
+        return transaction.merchantId === transactionsFilter.value?.merchant.id
       })
     }
 
@@ -56,10 +69,23 @@ export const useTransactionStore = defineStore("transaction", () => {
     return transactions.value?.length
   })
 
+  const filteredTransactionsNumber = computed(() => {
+    return filteredTransactions.value?.length
+  })
+
   const transactionsSum = computed(() => {
     let sum = 0
     if (transactionsNumber.value) {
       sum = +transactions.value.reduce((sum, current) => sum + current.amount, 0).toFixed(2) || 0
+    }
+
+    return sum
+  })
+
+  const filteredTransactionsSum = computed(() => {
+    let sum = 0
+    if (filteredTransactions.value) {
+      sum = +filteredTransactions.value.reduce((sum, current) => sum + current.amount, 0).toFixed(2) || 0
     }
 
     return sum
@@ -74,6 +100,8 @@ export const useTransactionStore = defineStore("transaction", () => {
   return {
     fetchTransactions,
     filteredTransactions,
+    filteredTransactionsNumber,
+    filteredTransactionsSum,
     getTransactionById,
     loadingTransactions,
     transactions,
@@ -81,5 +109,6 @@ export const useTransactionStore = defineStore("transaction", () => {
     transactionsNumber,
     transactionsSum,
     transactionsFetchFailed,
+    setTransactionsFilter
   }
 })

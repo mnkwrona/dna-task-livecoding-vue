@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTransactionStore } from '@/stores/transaction'
+import { ArrowLongLeftIcon } from '@heroicons/vue/20/solid'
 
 const transactionStore = useTransactionStore()
 
@@ -19,7 +20,16 @@ fetchTransactions()
 </script>
 
 <template>
-  <div class="transaction-details-view">
+  <div class="transaction-details-view flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
+      <RouterLink to="/transactions" class="w-fit rounded-md hover:bg-white">
+        <div class="flex flex-row w-fit">
+          <ArrowLongLeftIcon class="mr-3 h-5 w-5" aria-hidden="true" />
+          <span> Transactions </span>
+        </div>
+      </RouterLink>
+    </div>
+
     <div v-if="transactionDetails">
       <p v-for="prop in Object.keys(transactionDetails)" :key="transactionDetails[prop]">
         <span>{{ prop }}:</span>

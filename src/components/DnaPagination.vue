@@ -62,7 +62,7 @@ const handlPageClick = (page: number) => {
         v-for="page in total"
         :key="page"
         href="#"
-        class="inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium"
+        class="inline-flex items-center border-t-2 px-2 pt-4 text-sm font-medium"
         :class="linkClasses(page)"
         @click="handlPageClick(page)"
       >

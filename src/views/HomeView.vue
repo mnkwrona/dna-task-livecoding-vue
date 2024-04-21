@@ -27,15 +27,9 @@ fetchMerchants()
 </script>
 
 <template>
-  <div class="home-view">
+  <div class="home-view flex justify-between">
     <DashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
     <DashboardBox :number="transactionsNumber" label="Transactions" />
     <DashboardBox :number="merchantsNumber" label="Merchants" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.home-view {
-  display: flex;
-}
-</style>

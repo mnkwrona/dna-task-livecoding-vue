@@ -4,7 +4,7 @@ import type { PropType } from 'vue'
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<object>,
+    type: String as PropType<string>,
     required: false
   },
   label: {

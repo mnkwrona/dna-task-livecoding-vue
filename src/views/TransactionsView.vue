@@ -10,12 +10,19 @@ import { useMerchantStore } from '@/stores/merchant'
 
 const DnaFilters = defineAsyncComponent(() => import('@/components/DnaFilters.vue'))
 const DnaTable = defineAsyncComponent(() => import('@/components/DnaTable.vue'))
+const DashboardBox = defineAsyncComponent(() => import('@/components/DashboardBox.vue'))
 
 const router = useRouter()
 
 const transactionStore = useTransactionStore()
-const { filteredTransactions, transactions, transactionsFilter } = storeToRefs(transactionStore)
-const { fetchTransactions } = transactionStore
+const {
+  filteredTransactions,
+  filteredTransactionsNumber,
+  filteredTransactionsSum,
+  transactions,
+  transactionsFilter
+} = storeToRefs(transactionStore)
+const { fetchTransactions, setTransactionsFilter } = transactionStore
 
 const merchantStore = useMerchantStore()
 const { fetchMerchants } = merchantStore
@@ -34,7 +41,7 @@ const valueFormatted = (item: Transaction, key: string) => {
 }
 
 const handleFiltersChanged = (event: Filter) => {
-  transactionsFilter.value = event
+  setTransactionsFilter(event)
 }
 
 const rowClickHandler = (transactionId: string) => {
@@ -46,10 +53,23 @@ fetchMerchants()
 </script>
 
 <template>
-  <div class="transactions-view flex flex-col align-start">
-    <DnaFilters :merchants="merchants" @filterChange="handleFiltersChanged" />
+  <div class="transactions-view flex flex-col gap-20">
+    <DnaFilters
+      :merchants="merchants"
+      :filtersValue="transactionsFilter"
+      class="justify-start gap-6"
+      @filterChange="handleFiltersChanged"
+    />
 
-    <div v-if="filteredTransactions.length" class="results">
+    <div
+      v-if="transactionsFilter && filteredTransactionsNumber"
+      class="results flex flex-col gap-10"
+    >
+      <div class="flex flex-row gap-10 justify-start w-full">
+        <DashboardBox :number="filteredTransactionsSum" label="Profit" />
+        <DashboardBox :number="filteredTransactionsNumber" label="Transactions" />
+      </div>
+
       <DnaTable :headers="headers" :items="filteredTransactions" :handleRowClick="rowClickHandler">
         <template #item="item">
           <td
@@ -62,6 +82,10 @@ fetchMerchants()
           </td>
         </template>
       </DnaTable>
+    </div>
+
+    <div v-else-if="transactionsFilter && !filteredTransactionsNumber" class="text-center w-full">
+      <span> No transactions found. </span>
     </div>
   </div>
 </template>

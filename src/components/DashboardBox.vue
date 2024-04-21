@@ -34,13 +34,14 @@ const numberCopy = computed(() => {
   flex-grow: 1;
   height: 100px;
   align-items: center;
+  max-width: 300px;
   justify-content: space-evenly;
   border: 1px solid var(--color-border);
   border-radius: 5px;
 
   span {
     font-size: 24px;
-    color: hsl(160, 100%, 37%);
+    color: #00bd7e;
   }
 }
 </style>
