@@ -28,7 +28,7 @@ const numberCopy = computed(() => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .dashboard-box {
   display: flex;
   flex-grow: 1;
