@@ -2,11 +2,11 @@ import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 
-import DashboardBox from '@/components/DashboardBox.vue'
+import DnaDashboardBox from '@/components/DnaDashboardBox.vue'
 
 describe('NumberBox', () => {
   it('renders correctly with provided props', () => {
-    const wrapper = mount(DashboardBox, {
+    const wrapper = mount(DnaDashboardBox, {
       props: {
         label: 'Label',
         number: 123
@@ -16,7 +16,7 @@ describe('NumberBox', () => {
   })
 
   it('renders correctly without currency sign', () => {
-    const wrapper = mount(DashboardBox, {
+    const wrapper = mount(DnaDashboardBox, {
       props: {
         label: 'Label',
         number: 123
@@ -26,7 +26,7 @@ describe('NumberBox', () => {
   })
 
   it('renders correctly with currency sign', () => {
-    const wrapper = mount(DashboardBox, {
+    const wrapper = mount(DnaDashboardBox, {
       props: {
         currencySign: '$',
         label: 'Label',

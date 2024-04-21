@@ -4,6 +4,7 @@ import type { PropType } from 'vue'
 import { type Filter } from '../types/Filter.type'
 import { type Merchant } from '../types/Merchant.type'
 
+const DnaButton = defineAsyncComponent(() => import('@/components/DnaButton.vue'))
 const DnaSelect = defineAsyncComponent(() => import('@/components/DnaSelect.vue'))
 const DnaDateInput = defineAsyncComponent(() => import('@/components/DnaDateInput.vue'))
 
@@ -37,7 +38,7 @@ const handleFilterUpdate = (searchValue: string | Object, searchParam: string) =
 }
 
 const showClearButton = computed(() => {
-  return !!filter.value.merchant || !!filter.value.from || !!filter.value.to
+  return !!filter.value?.merchant || !!filter.value?.from || !!filter.value?.to
 })
 
 const clear = () => {
@@ -68,12 +69,6 @@ const clear = () => {
       @update:modelValue="handleFilterUpdate($event as String, 'to')"
     />
 
-    <button
-      v-if="showClearButton"
-      @click="clear"
-      class="bg-[#00bd7e] opacity-80 hover:opacity-100 text-white h-fit px-4 py-2 rounded-md transition ease-in-out duration-300"
-    >
-      <span> Clear </span>
-    </button>
+    <DnaButton v-if="showClearButton" @click="clear">Clear </DnaButton>
   </div>
 </template>

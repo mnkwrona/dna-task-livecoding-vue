@@ -10,7 +10,7 @@ import { useMerchantStore } from '@/stores/merchant'
 
 const DnaFilters = defineAsyncComponent(() => import('@/components/DnaFilters.vue'))
 const DnaTable = defineAsyncComponent(() => import('@/components/DnaTable.vue'))
-const DashboardBox = defineAsyncComponent(() => import('@/components/DashboardBox.vue'))
+const DnaDashboardBox = defineAsyncComponent(() => import('@/components/DnaDashboardBox.vue'))
 
 const router = useRouter()
 
@@ -21,6 +21,7 @@ const {
   filteredTransactionsSum,
   loadingTransactions,
   transactions,
+  transactionsFetchFailed,
   transactionsFilter
 } = storeToRefs(transactionStore)
 const { fetchTransactions, setTransactionsFilter } = transactionStore
@@ -49,6 +50,10 @@ const rowClickHandler = (transactionId: string) => {
   return router.push(`/transactions/${transactionId}`)
 }
 
+const showTransactions = computed(() => {
+  return Object.keys(transactionsFilter.value).length && filteredTransactionsNumber.value
+})
+
 fetchTransactions()
 fetchMerchants()
 </script>
@@ -62,13 +67,10 @@ fetchMerchants()
       @filterChange="handleFiltersChanged"
     />
 
-    <div
-      v-if="transactionsFilter && filteredTransactionsNumber"
-      class="results flex flex-col gap-10"
-    >
+    <div v-if="showTransactions" class="results flex flex-col gap-10">
       <div class="flex flex-row gap-10 justify-start w-full">
-        <DashboardBox :number="filteredTransactionsSum" label="Profit" />
-        <DashboardBox :number="filteredTransactionsNumber" label="Transactions" />
+        <DnaDashboardBox :number="filteredTransactionsSum" label="Profit" />
+        <DnaDashboardBox :number="filteredTransactionsNumber" label="Transactions" />
       </div>
 
       <DnaTable :headers="headers" :items="filteredTransactions" :handleRowClick="rowClickHandler">
@@ -77,7 +79,6 @@ fetchMerchants()
             v-for="(paramKey, index) of Object.keys(item)"
             :key="index"
             class="whitespace-nowrap truncate text-ellipsis text-clip py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
-            @click="router.push('/')"
           >
             {{ valueFormatted(item, paramKey) }}
           </td>
@@ -91,7 +92,7 @@ fetchMerchants()
       <span> No transactions found. </span>
     </div>
 
-    <div v-else class="text-center w-full">
+    <div v-else-if="transactionsFetchFailed" class="text-center w-full">
       <span> There was a problem when fetching transactions. </span>
     </div>
   </div>

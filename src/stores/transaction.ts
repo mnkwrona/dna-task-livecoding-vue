@@ -1,12 +1,10 @@
 import { defineStore } from "pinia"
 import { computed, ref } from 'vue'
 import { useFetch } from '@vueuse/core'
-import {  useRouter } from 'vue-router'
 import { type Filter } from '../types/Filter.type'
 import { type Transaction } from '../types/Transaction.type'
 
 export const useTransactionStore = defineStore("transaction", () => {
-  const router = useRouter()
   const apiUrl = `${import.meta.env.VITE_API_URL}/transactions`
 
   //state
@@ -18,14 +16,6 @@ export const useTransactionStore = defineStore("transaction", () => {
   //actions
   const setTransactionsFilter = (filter: Filter) => {
     transactionsFilter.value = filter
-    const query = {
-      merchantId: filter.merchant?.id,
-      merchantName: filter.merchant?.name,
-      from: filter.from,
-      to: filter.to,
-    }
-
-    router.push({ query: query })
   }
 
   const fetchTransactions = async () => {

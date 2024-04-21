@@ -48,7 +48,9 @@ const handlPageClick = (page: number) => {
 </script>
 
 <template>
-  <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
+  <nav
+    class="dna-pagination flex items-center justify-between border-t border-gray-200 px-4 sm:px-0"
+  >
     <div
       class="-mt-px flex w-0 flex-1"
       :class="firstPageDisplayed ? 'opacity-30 hover:cursor-default' : 'hover:cursor-pointer'"

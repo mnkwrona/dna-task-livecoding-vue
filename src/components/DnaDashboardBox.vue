@@ -24,7 +24,7 @@ const numberCopy = computed(() => {
 
 <template>
   <div
-    class="dashboard-box flex grow h-[100px] items-center max-w-[300px] justify-evenly border-solid border-[1px] border-[var(--color-border)] rounded-lg"
+    class="dna-dashboard-box flex grow h-[100px] items-center max-w-[300px] justify-evenly border-solid border-[1px] border-[var(--color-border)] rounded-lg"
   >
     <span class="text-[24px] text-[var(--color-accent)]">{{ numberCopy }}</span> {{ label }}
   </div>

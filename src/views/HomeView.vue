@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useMerchantStore } from '@/stores/merchant'
 import { useTransactionStore } from '@/stores/transaction'
 
-const DashboardBox = defineAsyncComponent(() => import('@/components/DashboardBox.vue'))
+const DnaDashboardBox = defineAsyncComponent(() => import('@/components/DnaDashboardBox.vue'))
 
 const transactionStore = useTransactionStore()
 const { fetchTransactions } = transactionStore
@@ -30,9 +30,9 @@ fetchMerchants()
     </template>
 
     <template v-else>
-      <DashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
-      <DashboardBox :number="transactionsNumber" label="Transactions" />
-      <DashboardBox :number="merchantsNumber" label="Merchants" />
+      <DnaDashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
+      <DnaDashboardBox :number="transactionsNumber" label="Transactions" />
+      <DnaDashboardBox :number="merchantsNumber" label="Merchants" />
     </template>
   </div>
 </template>
