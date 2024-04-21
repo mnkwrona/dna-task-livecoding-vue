@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { computed, ref } from 'vue'
 import { useFetch } from '@vueuse/core'
+import { type Filter } from '../types/Filter.type'
 import { type Transaction } from '../types/Transaction.type'
 
 export const useTransactionStore = defineStore("transaction", () => {
@@ -10,6 +11,7 @@ export const useTransactionStore = defineStore("transaction", () => {
   const transactions = ref<Transaction[]>([])
   const loadingTransactions = ref<Boolean>(true)
   const transactionsFetchFailed = ref<Boolean>(false)
+  const transactionsFilter = ref<Filter>()
 
   //actions
   const fetchTransactions = async () => {
@@ -21,6 +23,31 @@ export const useTransactionStore = defineStore("transaction", () => {
   }
 
   //getters
+  const filteredTransactions = computed(() => {
+  // TODO
+    let result = [...transactions.value]
+
+    if (transactionsFilter.value?.merchant) {
+      result = result.filter(transaction => {
+        return transaction.merchantId === transactionsFilter.value?.merchant
+      })
+    }
+
+    if (transactionsFilter.value?.from) {
+      result = result.filter(transaction => {
+        return new Date(transaction.date).setHours(0,0,0,0) >= new Date(transactionsFilter.value?.from)
+      })
+    }
+
+    if (transactionsFilter.value?.to) {
+      result = result.filter(transaction => {
+        return new Date(transaction.date).setHours(0,0,0,0) <= new Date(transactionsFilter.value?.to)
+      })
+    }
+
+    return result
+    })
+
   const transactionsNumber = computed(() => {
     return transactions.value?.length
   })
@@ -36,8 +63,10 @@ export const useTransactionStore = defineStore("transaction", () => {
 
   return {
     fetchTransactions,
+    filteredTransactions,
     loadingTransactions,
     transactions,
+    transactionsFilter,
     transactionsNumber,
     transactionsSum,
     transactionsFetchFailed,

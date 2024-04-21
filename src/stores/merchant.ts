@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import { useFetch } from '@vueuse/core'
 import { type Merchant } from '../types/Merchant.type'
 
-
 export const useMerchantStore = defineStore("merchant", () => {
   const apiUrl = `${import.meta.env.VITE_API_URL}/merchants`
 

@@ -12,7 +12,9 @@ const props = defineProps<{
 const currentPage = ref(1)
 const displayedItemsPerPage = ref(100)
 
-const totalPages = Math.ceil(props.items?.length / displayedItemsPerPage.value)
+const totalPages = computed(() => {
+  return Math.ceil(props.items?.length / displayedItemsPerPage.value)
+})
 
 const currentPageItems = computed(() => {
   let items = [{}]
@@ -53,11 +55,6 @@ const handlePageChange = (newPage: number) => {
       </tbody>
     </table>
 
-    <DnaPagination
-      v-if="totalPages > 1"
-      :current="currentPage"
-      :total="totalPages"
-      @@pageChanged="handlePageChange"
-    />
+    <DnaPagination :current="currentPage" :total="totalPages" @@pageChanged="handlePageChange" />
   </div>
 </template>
