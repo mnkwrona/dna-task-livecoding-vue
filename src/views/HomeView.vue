@@ -27,16 +27,15 @@ fetchMerchants()
 </script>
 
 <template>
-  <main>
+  <div class="home-view">
     <DashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
     <DashboardBox :number="transactionsNumber" label="Transactions" />
     <DashboardBox :number="merchantsNumber" label="Merchants" />
-  </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-main {
+.home-view {
   display: flex;
-  padding: 4rem 2rem;
 }
 </style>

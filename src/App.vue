@@ -7,14 +7,21 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/transactions">Transactions</RouterLink>
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style lang="scss" scoped>
+main {
+  padding: 4rem 2rem;
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
