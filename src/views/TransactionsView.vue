@@ -19,6 +19,7 @@ const {
   filteredTransactions,
   filteredTransactionsNumber,
   filteredTransactionsSum,
+  loadingTransactions,
   transactions,
   transactionsFilter
 } = storeToRefs(transactionStore)
@@ -84,8 +85,14 @@ fetchMerchants()
       </DnaTable>
     </div>
 
+    <template v-else-if="loadingTransactions"><span> Fetching transactions... </span></template>
+
     <div v-else-if="transactionsFilter && !filteredTransactionsNumber" class="text-center w-full">
       <span> No transactions found. </span>
+    </div>
+
+    <div v-else class="text-center w-full">
+      <span> There was a problem when fetching transactions. </span>
     </div>
   </div>
 </template>

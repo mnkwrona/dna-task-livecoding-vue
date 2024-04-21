@@ -12,13 +12,8 @@ const merchantStore = useMerchantStore()
 const { fetchTransactions } = transactionStore
 const { fetchMerchants } = merchantStore
 
-const {
-  loadingTransactions,
-  transactions,
-  transactionsNumber,
-  transactionsSum,
-  transactionsFetchFailed
-} = storeToRefs(transactionStore)
+const { loadingTransactions, transactionsNumber, transactionsSum, transactionsFetchFailed } =
+  storeToRefs(transactionStore)
 
 const { merchantsNumber } = storeToRefs(merchantStore)
 
@@ -28,8 +23,18 @@ fetchMerchants()
 
 <template>
   <div class="home-view flex justify-between">
-    <DashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
-    <DashboardBox :number="transactionsNumber" label="Transactions" />
-    <DashboardBox :number="merchantsNumber" label="Merchants" />
+    <template v-if="transactionsFetchFailed">
+      <span> There was a problem when fetching transactions. </span>
+    </template>
+
+    <template v-else-if="loadingTransactions">
+      <span> Fetching transactions... </span>
+    </template>
+
+    <template v-else>
+      <DashboardBox :number="transactionsSum" currency-sign="$" label="Profit" />
+      <DashboardBox :number="transactionsNumber" label="Transactions" />
+      <DashboardBox :number="merchantsNumber" label="Merchants" />
+    </template>
   </div>
 </template>

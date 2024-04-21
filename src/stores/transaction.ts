@@ -36,8 +36,8 @@ export const useTransactionStore = defineStore("transaction", () => {
     const { isFetching, error, data } = await useFetch(apiUrl).get().json()
 
     transactions.value = data.value as Transaction[]
-    loadingTransactions.value = !!isFetching
-    transactionsFetchFailed.value = !!error
+    loadingTransactions.value = !!isFetching.value
+    transactionsFetchFailed.value = !!error.value
   }
 
   //getters

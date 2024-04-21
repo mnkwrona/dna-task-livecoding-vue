@@ -13,11 +13,15 @@ export const useMerchantStore = defineStore("merchant", () => {
 
   //actions
   const fetchMerchants = async () => {
+    if (merchants.value?.length) {
+      return
+    }
+
     const { isFetching, error, data } = await useFetch(apiUrl).get().json()
 
     merchants.value = data.value as Merchant[]
-    loadingMerchants.value = !!isFetching
-    merchantsFetchFailed.value = !!error
+    loadingMerchants.value = !!isFetching.value
+    merchantsFetchFailed.value = !!error.value
   }
 
   //getters

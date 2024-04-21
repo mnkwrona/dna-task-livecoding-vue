@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useTransactionStore } from '@/stores/transaction'
 import { ArrowLongLeftIcon } from '@heroicons/vue/20/solid'
@@ -7,6 +8,7 @@ import { ArrowLongLeftIcon } from '@heroicons/vue/20/solid'
 const transactionStore = useTransactionStore()
 
 const { fetchTransactions, getTransactionById } = transactionStore
+const { loadingTransactions } = storeToRefs(transactionStore)
 
 const route = useRoute()
 
@@ -35,6 +37,14 @@ fetchTransactions()
         <span>{{ prop }}:</span>
         {{ transactionDetails[prop] }}
       </p>
+    </div>
+
+    <div v-else-if="loadingTransactions">
+      <span> Fetching transaction details... </span>
+    </div>
+
+    <div v-else>
+      <span> There was a problem when fetching transaction details. </span>
     </div>
   </div>
 </template>
